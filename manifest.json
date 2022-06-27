@@ -1,0 +1,10 @@
+{
+    "name": "Link Saver",
+    "description": "Save links in configs to load.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": ["storage", "tabs", "scripting", "storage"],
+    "action": {
+      "default_popup": "popup.html"
+    }
+}
