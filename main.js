@@ -20,6 +20,23 @@ function load(){
     });    
 }
 load();
+
+async function saveAllTabs() {
+    try {
+        const tabs = await chrome.tabs.query({});
+        var newConfig = new config();
+        newConfig.name = document.getElementById("savename").value;
+        for(let t of tabs){
+            newConfig.tabs.push(t.url);
+        }
+        configs.push(newConfig);
+        chrome.storage.sync.set({"configs": configs});
+        load();
+    }
+    catch(err) {
+        alert("Error: " + err)
+    }
+}
   
 document.getElementById("save").addEventListener("click", saveAllTabs);
 document.getElementById("load").addEventListener("click", () => {
@@ -44,20 +61,3 @@ document.getElementById("delete").addEventListener("click", () => {
         }
     }
 });
-
-async function saveAllTabs() {
-    try {
-        const tabs = await chrome.tabs.query({});
-        var newConfig = new config();
-        newConfig.name = document.getElementById("savename").value;
-        for(let t of tabs){
-            newConfig.tabs.push(t.url);
-        }
-        configs.push(newConfig);
-        chrome.storage.sync.set({"configs": configs});
-        load();
-    }
-    catch(err) {
-        alert("Error: " + err)
-    }
-}
